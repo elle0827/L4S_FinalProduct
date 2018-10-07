@@ -2,35 +2,39 @@ package elle0827.io.l4s_sns_apps_;
 
 public class Card {
 
-    private String title;
-    private String content;
-    private int likecount=0;
+    private String memo;
+    private String url;
+    private int likecount = 0;
+    private int ImageId = 0;
+    private String key;
 
-    public Card(String title, String content, int likecount) {
+    public Card(String key, String memo, String url, int likecount, int ImageId) {
 
-        this.title = title;
-        this.content = content;
+        this.memo= memo;
+        this.url = url;
         this.likecount = likecount;
-
-    }
-    public Card(){
-
+        this.ImageId = ImageId;
+        this.key = key;
     }
 
-    public String getTitle() {
-        return title;
+    public Card() {
+
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getMemo() {
+        return memo;
     }
 
-    public String getContent() {
-        return content;
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getlikecount() {
@@ -39,5 +43,21 @@ public class Card {
 
     public void setlikecount(int likecount) {
         this.likecount = likecount;
+    }
+
+    public int getImageId() {
+        return ImageId;
+    }
+
+    public void setImageId(int ImageId) {
+        this.ImageId = ImageId;
+    }
+
+    public String getkey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

@@ -15,26 +15,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="47dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="260dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/titleTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_weight="1"
-                    android:text="タイトル" />
+                    android:text="写真のタイトル" />
 
                 <TextView
                     android:id="@+id/contentTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_weight="1"
                     android:text="本文" />
 
@@ -42,8 +42,8 @@
 
             <ImageView
                 android:id="@+id/like_image"
-                android:layout_width="72dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/likes" />
 
@@ -53,9 +53,18 @@
                 android:layout_height="50dp"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:text="0" />
+                android:text="0"
+                android:typeface="serif" />
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/ImageId"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/indonesia" />
+
     </LinearLayout>
+
 </LinearLayout>

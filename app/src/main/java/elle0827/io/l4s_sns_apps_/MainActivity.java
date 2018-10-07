@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,31 +16,38 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements CardAdapter.OnLikeClickListener{
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
 
-    List<Card> mCards;
+    List<Post> mCards;
     CardAdapter mCardAdapter;
     ListView listView;
     FloatingActionButton add_button;
 
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        position = getIntent().getIntExtra("POSITION", 0);
+
         listView = (ListView) findViewById(R.id.listView);
 
-        mCards = new ArrayList<Card>();
+        mCards = new ArrayList<Post>();
         mCardAdapter = new CardAdapter(this, R.layout.card, mCards);
+        mCardAdapter.setOnLikeClickListener(this);
         listView.setAdapter(mCardAdapter);
 //        listViewがどこのデータと繋がれるか
 
@@ -54,12 +62,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        reference.addChildEventListener(new ChildEventListener() {
+        reference.child("areas").child(String.valueOf(0)).child("area").child("places").child(String.valueOf(position)).child("posts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Card card = dataSnapshot.getValue(Card.class);
-                mCardAdapter.add(card);
+                // Card card = dataSnapshot.getValue(Card.class);
+                // mCardAdapter.add(card);
+                // mCardAdapter.notifyDataSetChanged();
+
+                Post post = dataSnapshot.getValue(Post.class);
+                mCardAdapter.add(post);
                 mCardAdapter.notifyDataSetChanged();
+                Log.d("DEBUGGG", post.getMemo());
+
+
             }
 
             @Override
@@ -83,9 +98,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
     public void onLikeClick(int position) {
+        /*
+        Post card = mCardAdapter.getItem(position);
+        if (card == null) return;
+
+        int likecount = card.getlikecount();
+        likecount++;
+        card.setlikecount(likecount);
+
+        Map<String,Object> postValues = new HashMap<>();
+        postValues.put("/"+ card.getkey()+"/",card);
+        // /=urlのことで,key一つ一つのアドレスに行き着く
         Toast.makeText(MainActivity.this, "いいねが押されたよ", Toast.LENGTH_SHORT).show();
+
+        reference.updateChildren(postValues);
+        */
     }
 
 }

@@ -34,13 +34,15 @@ public class AddActivity extends AppCompatActivity {
         String content = contentEditText.getText().toString();
         String key = reference.push().getKey();
 //        pushのタイミングをtimekeyとする
-        Card card = new Card(title, content, 0);
+        // Card card = new Card(key,title,content,0);
+        /*
         reference.child(key).setValue(card).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 finish();
             }
         });
+        */
     }
 
 }

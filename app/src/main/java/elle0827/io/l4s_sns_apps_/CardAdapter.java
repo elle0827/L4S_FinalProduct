@@ -8,14 +8,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-public class CardAdapter extends ArrayAdapter<Card> {
-    private List<Card> mCards;
+
+public class CardAdapter extends ArrayAdapter<Post> {
+    private List<Post> mCards;
     OnLikeClickListener likeClickListener = null;
 //＜＞ダイアモンド演算子：List<A> 中身がAのList
 
-    public CardAdapter(Context context, int layoutResourceId, List<Card> objects) {
+    public CardAdapter(Context context, int layoutResourceId, List<Post> objects) {
         super(context, layoutResourceId, objects);
 
         mCards = objects;
@@ -29,10 +32,11 @@ public class CardAdapter extends ArrayAdapter<Card> {
 //    ニュース（要素数）が何個あるか
 
     @Override
-    public Card getItem(int position) {
+    public Post getItem(int position) {
         return mCards.get(position);
     }
-//なんばん目のニュース（要素）か
+
+    //なんばん目のニュース（要素）か
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
@@ -44,30 +48,38 @@ public class CardAdapter extends ArrayAdapter<Card> {
             viewHolder = (ViewHolder) convertView.getTag();
 
         }
-        final Card item = getItem(position);
+        final Post item = getItem(position);
         if (item != null) {
-            viewHolder.titleTextView.setText(item.getTitle());
-            viewHolder.contentTextView.setText(item.getContent());
-            viewHolder.likecountTextView.setText(String.valueOf(item.getlikecount()));
+            viewHolder.titleTextView.setText(item.getMemo());
+            viewHolder.contentTextView.setText(item.getUrl());
+            Picasso.get().load(item.getUrl()).into(viewHolder.ImageId);
+            viewHolder.likecountTextView.setText(String.valueOf(item.getLikeCount()));
             viewHolder.likeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (likeClickListener != null) {
                         likeClickListener.onLikeClick(position);
-//                    item.likecount++;
-//                    viewHolder.likecountTextView.setText(item.likecount);
-//                    Toast.makeText(MainActivity.this, "いいねが押されたよ", Toast.LENGTH_SHORT).show();
                     }
                 }
 
 
             });
-
         }
 
         return convertView;
 
     }
+
+    /*
+    public Post getCardBykey(String key) {
+        for (Post card : mCards) {
+            if (card.getkey().equals(key)) {
+                return card;
+            }
+        }
+        return null;
+    }
+    */
 
     public void setOnLikeClickListener(OnLikeClickListener likeClickListener) {
         this.likeClickListener = likeClickListener;
@@ -78,15 +90,15 @@ public class CardAdapter extends ArrayAdapter<Card> {
         ImageView likeImage;
         TextView titleTextView;
         TextView contentTextView;
+        ImageView ImageId;
         TextView likecountTextView;
 
         public ViewHolder(View view) {
             likeImage = (ImageView) view.findViewById(R.id.like_image);
             titleTextView = (TextView) view.findViewById(R.id.titleTextView);
             contentTextView = (TextView) view.findViewById(R.id.contentTextView);
+            ImageId = (ImageView) view.findViewById(R.id.ImageId);
             likecountTextView = (TextView) view.findViewById(R.id.like_count);
-
-
         }
     }
 
