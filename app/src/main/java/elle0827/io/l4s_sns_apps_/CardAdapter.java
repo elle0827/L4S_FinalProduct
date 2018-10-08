@@ -70,7 +70,7 @@ public class CardAdapter extends ArrayAdapter<Post> {
 
     }
 
-    /*
+
     public Post getCardBykey(String key) {
         for (Post card : mCards) {
             if (card.getkey().equals(key)) {
@@ -79,7 +79,7 @@ public class CardAdapter extends ArrayAdapter<Post> {
         }
         return null;
     }
-    */
+
 
     public void setOnLikeClickListener(OnLikeClickListener likeClickListener) {
         this.likeClickListener = likeClickListener;

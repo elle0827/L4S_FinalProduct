@@ -16,7 +16,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity implements CardAdapter.OnLikeClickListener{
+public class MainActivity extends AppCompatActivity implements CardAdapter.OnLikeClickListener {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements CardAdapter.OnLik
     CardAdapter mCardAdapter;
     ListView listView;
     FloatingActionButton add_button;
-
+    //    ImageView ImageId;
     int position;
 
     @Override
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements CardAdapter.OnLik
         position = getIntent().getIntExtra("POSITION", 0);
 
         listView = (ListView) findViewById(R.id.listView);
-
+//        ImageId = (ImageView) findViewById(R.id.ImageId);
         mCards = new ArrayList<Post>();
         mCardAdapter = new CardAdapter(this, R.layout.card, mCards);
         mCardAdapter.setOnLikeClickListener(this);
@@ -70,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements CardAdapter.OnLik
                 // mCardAdapter.notifyDataSetChanged();
 
                 Post post = dataSnapshot.getValue(Post.class);
+
+//                Picasso.get().load(post.getUrl()).into(ImageId);
                 mCardAdapter.add(post);
                 mCardAdapter.notifyDataSetChanged();
                 Log.d("DEBUGGG", post.getMemo());
@@ -97,24 +98,138 @@ public class MainActivity extends AppCompatActivity implements CardAdapter.OnLik
 
             }
         });
+//        reference.child("areas").child(String.valueOf(1)).child("area").child("places").child(String.valueOf(position)).child("posts").addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                // Card card = dataSnapshot.getValue(Card.class);
+//                // mCardAdapter.add(card);
+//                // mCardAdapter.notifyDataSetChanged();
+//
+//                Post post = dataSnapshot.getValue(Post.class);
+//
+////                Picasso.get().load(post.getUrl()).into(ImageId);
+//                mCardAdapter.add(post);
+//                mCardAdapter.notifyDataSetChanged();
+//                Log.d("DEBUGGG", post.getMemo());
+//
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+//        reference.child("areas").child(String.valueOf(2)).child("area").child("places").child(String.valueOf(position)).child("posts").addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                // Card card = dataSnapshot.getValue(Card.class);
+//                // mCardAdapter.add(card);
+//                // mCardAdapter.notifyDataSetChanged();
+//
+//                Post post = dataSnapshot.getValue(Post.class);
+//
+////                Picasso.get().load(post.getUrl()).into(ImageId);
+//                mCardAdapter.add(post);
+//                mCardAdapter.notifyDataSetChanged();
+//                Log.d("DEBUGGG", post.getMemo());
+//
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//        reference.child("areas").child(String.valueOf(3)).child("area").child("places").child(String.valueOf(position)).child("posts").addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                // Card card = dataSnapshot.getValue(Card.class);
+//                // mCardAdapter.add(card);
+//                // mCardAdapter.notifyDataSetChanged();
+//
+//                Post post = dataSnapshot.getValue(Post.class);
+//
+////                Picasso.get().load(post.getUrl()).into(ImageId);
+//                mCardAdapter.add(post);
+//                mCardAdapter.notifyDataSetChanged();
+//                Log.d("DEBUGGG", post.getMemo());
+//
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
     }
+
     @Override
     public void onLikeClick(int position) {
-        /*
+
         Post card = mCardAdapter.getItem(position);
         if (card == null) return;
 
-        int likecount = card.getlikecount();
+        int likecount = card.getLikeCount();
         likecount++;
-        card.setlikecount(likecount);
+        card.setLikeCount(likecount);
 
-        Map<String,Object> postValues = new HashMap<>();
-        postValues.put("/"+ card.getkey()+"/",card);
+        Map<String, Object> postValues = new HashMap<>();
+        postValues.put("/" + card.getkey() + "/", card);
         // /=urlのことで,key一つ一つのアドレスに行き着く
         Toast.makeText(MainActivity.this, "いいねが押されたよ", Toast.LENGTH_SHORT).show();
 
         reference.updateChildren(postValues);
-        */
+
     }
 
 }
