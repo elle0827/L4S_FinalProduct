@@ -219,9 +219,9 @@ public class MainActivity extends AppCompatActivity implements CardAdapter.OnLik
         Post card = mCardAdapter.getItem(position);
         if (card == null) return;
 
-        int likecount = card.getLikeCount();
-        likecount++;
-        card.setLikeCount(likecount);
+        int likeCount = card.getLikeCount();
+        likeCount++;
+        card.setLikeCount(likeCount);
 
         Map<String, Object> postValues = new HashMap<>();
         postValues.put("/" + card.getkey() + "/", card);
